@@ -1,0 +1,32 @@
+shiny:
+  proxy:
+    title: Sam Abbott's Applications
+    logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/portrait.jpg
+    landing-page: /
+    heartbeat-rate: 10000
+    heartbeat-timeout: 60000
+    port: 8080
+    authentication: none
+    docker:
+      internal-networking: true
+  apps:
+  - name: exploreidmodels
+    display-name: Explore Infectious Disease Models
+    description: An app which allows the exploration of the dynamics of a range of simple infectious disease models.
+    docker-cmd: ["Rscript", "-e", "shiny::runApp('/home/rstudio/exploreidmodels', port = 3838, host = '0.0.0.0')"]
+    docker-image: seabbs/exploreidmodel
+    docker-network: docker-shinyproxy-net
+  - name: intro_to_tb_models
+    display-name: Introduction to Tuberculosis Models
+    description: An app recreating the models used in the practicals for the Intro to TB modelling course at the 2017 Union Conference.
+    docker-image: seabbs/intro_to_tb_models
+    docker-network: docker-shinyproxy-net
+  - name: fcdashboard
+    display-name: Funding Circle Dashboard
+    description: Visualise and explore both the public Funding Circle loanbook and your own.
+    docker-image: seabbs/fcdashboard
+    docker-network: docker-shinyproxy-net
+
+logging:
+  file:
+    shinyproxy.log

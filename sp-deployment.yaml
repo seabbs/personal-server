@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: shinyproxy
-        image: shinyproxy-example
+        image: shinyproxy
         imagePullPolicy: Never
         ports:
         - containerPort: 8080
