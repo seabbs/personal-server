@@ -21,8 +21,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
   exploreidmodels:
     container_name: exploreidmodels
-    image: seabbs/exploreidmodels:latest
-    command: ["Rscript", "-e", "shiny::runApp('/home/rstudio/exploreidmodels', port = 3838, host = '0.0.0.0', display.mode = 'normal')"]
+    image: exploreidmodels
+    build: exploreidmodels
     ports:
       - 3838:3838
   intro_to_tb_models:
@@ -44,20 +44,20 @@ services:
       - 3841:3838
   showmeperseus:
     container_name: showmeperseus
-    image: seabbs/showmeperseus:latest
-    command: ["Rscript", "-e", "rmarkdown::run('/home/rstudio/ShowMePerseus/index.Rmd', shiny_args = list(port = 3838, host = '0.0.0.0'))"]
+    build: showmeperseus
+    image: showmeperseus
     ports:
       - 3842:3838
   tb_england_wales:
     container_name: tb_england_wales
-    image: seabbs/tb_england_wales:latest
-    command: ["Rscript", "-e", "rmarkdown::run('/home/rstudio/TB_England_Wales/index.Rmd', shiny_args = list(port = 3838, host = '0.0.0.0'))"]
+    image: tb_england_wales
+    build: tb_england_wales
     ports:
       - 3843:3838
   exploreglobaltb:
     container_name: exploreglobaltb
-    image: seabbs/gettbinr:latest
-    command: ["Rscript", "-e", "shiny::runApp('/home/rstudio/getTBinR/inst/shiny/ExploreGlobalTB', port = 3838, host = '0.0.0.0')"]
+    build: exploreglobaltb
+    image: exploreglobaltb
     ports:
       - 3844:3838
 networks:
