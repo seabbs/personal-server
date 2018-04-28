@@ -1,27 +1,44 @@
 
 version: '3'
 services:
+  rstudio:
+    container_name: rstudio
+    image: rocker/tidyverse:latest
+    ports:
+      - 8787:8787
+    volumes:
+      - ../public_projects:home/rstudio/
+      - ../private_projects:home/rstudio/
+    env_file:
+      - ../secrets/rstudio/creds.env
   shinyproxy:
     container_name: shinyproxy
     build: shinyproxy
-    networks: 
-      - docker-shinyproxy-net
     ports:
-      - "8080:8080"
+      - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   exploreidmodels:
+    container_name: exploreidmodels
     image: seabbs/exploreidmodels:latest
     command: ["Rscript", "-e", "shiny::runApp('/home/rstudio/exploreidmodels', port = 3838, host = '0.0.0.0')"]
     ports:
       - 3838:3838
   intro_to_tb_models:
+    container_name: intro_to_tb_models
     image: seabbs/intro_to_tb_models:latest
     ports:
-      - 3838:3838
+      - 3839:3838
   fcdashboard:
+    container_name: fcdashboard
     image: seabbs/fcdashboard:latest
     ports:
-      - 3838:3838
+      - 3840:3838
     volumes:
-      - /personal-server/secrets/fcdashboard:/home/rstudio/fcdashboard
+      - ../secrets/fcdashboard:/home/fcdashboard
+
+
+networks:
+  default:
+    external:
+      name: shinyproxy-net

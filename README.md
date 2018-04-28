@@ -1,4 +1,31 @@
-# Example: containerized ShinyProxy with a Kubernetes cluster
+
+
+
+# Set-up
+
+1. Add required secrets to the `secrets` folder. These are,
+	1. `fcdashboard` - folder containing a copy of the loanbook saved as `loanbook.csv`.
+
+1. Add docker network
+
+```bash
+docker network create shinyproxy-net
+```
+
+1. Pull all images.
+
+```bash
+ docker-compose -f containers/docker-compose.yml pull
+```
+
+1. Build all images.
+
+```bash
+ docker-compose -f containers/docker-compose.yml build
+```
+
+
+# Kubernetes (to be implemented)
 
 In this example, ShinyProxy will run inside a Kubernetes cluster. Shiny containers will also be spawned
 in the same cluster. To make the application accessible outside the cluster, a NodePort service is created.
