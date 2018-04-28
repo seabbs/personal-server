@@ -7,12 +7,13 @@ services:
     ports:
       - 8787:8787
     volumes:
-      - ../public_projects:home/rstudio/
-      - ../private_projects:home/rstudio/
+      - ../public_projects:/home/rstudio/public_projects
+      - ../private_projects:/home/rstudio/private_projects
     env_file:
       - ../secrets/rstudio/creds.env
   shinyproxy:
     container_name: shinyproxy
+    image: shinyproxy
     build: shinyproxy
     ports:
       - 8080:8080
@@ -35,7 +36,7 @@ services:
     ports:
       - 3840:3838
     volumes:
-      - ../secrets/fcdashboard:/home/fcdashboard
+      - ../secrets/fcdashboard/loanbook.csv:/home/fcdashboard/loanbook.csv
 
 
 networks:
