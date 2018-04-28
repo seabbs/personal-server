@@ -10,16 +10,33 @@ shiny:
     docker:
       internal-networking: true
   apps:
-  - name: exploreidmodels
-    display-name: Explore Infectious Disease Models
-    description: An app which allows the exploration of the dynamics of a range of simple infectious disease models.
-    docker-cmd: ["Rscript", "-e", "shiny::runApp('/home/rstudio/exploreidmodels', port = 3838, host = '0.0.0.0')"]
-    docker-image: seabbs/exploreidmodel
+  - name: exploreglobaltb
+    display-name: Explore Global Tuberculosis - with getTBinR
+    description: An app harnessing the functionality of getTBinR to allow the exploration of World Health Organisation Tuberculosis data.
+    docker-image: seabbs/gettbinr
+    docker-cmd: ["Rscript", "-e", "shiny::runApp('/home/rstudio/getTBinR/inst/shiny/ExploreGlobalTB', port = 3838, host = '0.0.0.0')"]
+    docker-network: shinyproxy-net
+  - name: tbenglandwales
+    display-name: Tuberculosis in England and Wales
+    description: Exploring public data on Tuberculosis in England and Wales using interactive dashboards.
+    docker-image: seabbs/tb_england_wales
+    docker-cmd: ["Rscript", "-e", "rmarkdown::run('/home/rstudio/TB_England_Wales/index.Rmd', shiny_args = list(port = 3838, host = '0.0.0.0'))"]
     docker-network: shinyproxy-net
   - name: intro_to_tb_models
     display-name: Introduction to Tuberculosis Models
     description: An app recreating the models used in the practicals for the Intro to TB modelling course at the 2017 Union Conference.
     docker-image: seabbs/intro_to_tb_models
+    docker-network: shinyproxy-net
+  - name: exploreidmodels
+    display-name: Explore Infectious Disease Models
+    description: An app which allows the exploration of the dynamics of a range of simple infectious disease models.
+    docker-cmd: ["Rscript", "-e", "shiny::runApp('/home/rstudio/exploreidmodels', port = 3838, host = '0.0.0.0')"]
+    docker-image: seabbs/exploreidmodels
+    docker-network: shinyproxy-net
+  - name: thepebblegame
+    display-name: The Pebble Game
+    description: A simple game that can be used to understand some of the mathematics underlying epidemics and vaccination.
+    docker-image: seabbs/thepebblegame
     docker-network: shinyproxy-net
   - name: fcdashboard
     display-name: Funding Circle Dashboard
@@ -27,7 +44,12 @@ shiny:
     docker-image: seabbs/fcdashboard
     docker-volumes: ["/Users/samabbott/personal-server/secrets/fcdashboard/loanbook.csv:/home/fcdashboard/loanbook.csv"]
     docker-network: shinyproxy-net
-
+  - name: showmeperseus
+    display-name: Show Me Perseus
+    description: A shiny app to remove potential friction for new R users when using the R perseus package.
+    docker-image: seabbs/showmeperseus
+    docker-cmd: ["Rscript", "-e", "rmarkdown::run('/home/rstudio/ShowMePerseus/index.Rmd', shiny_args = list(port = 3838, host = '0.0.0.0'))"]
+    docker-network: shinyproxy-net
 logging:
   file:
     shinyproxy.log

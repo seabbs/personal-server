@@ -15,7 +15,7 @@ docker network create shinyproxy-net
 1. Pull all images.
 
 ```bash
- docker-compose -f containers/docker-compose.yml pull
+ docker-compose -f containers/docker-compose.yml pull --ignore-pull-failures
 ```
 
 1. Build all images.
