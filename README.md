@@ -36,3 +36,22 @@ There should now be a shinyproxy instance at `8080` and a jenkins instance at `9
 # Kubernetes (to be implemented)
 
 I plan to convert the docker infrastructure deployed above with `docker-compose` to kubernetes. I plan to do this using the managed google cloud service and have yet to find a functional example. Let me know if you have any thoughts on this.
+
+# To do's
+
+- [ ] Set up Jenkins to use a defined user password 
+- [ ] Set up Jenkins with scheduled builds (test)
+- [ ] Set up Ngninx proxy
+- [ ] Test all functionality
+- [ ] Improve docs
+- [ ] Add Jupyter notebook
+- [ ] Test cloud deployment
+- [ ] Point server.samabbott.co.uk at cloud deployment
+- [ ] Test
+- [ ] Change all website and GitHub Links to point to new server
+- [ ] Bring down old server instance
+- [ ] Set up scheduling:
+		- Rstudio server to refresh daily
+		- H2o tweets, every 15 minutes
+		- H2o tweets summary, every month
+		- Cheatsheets, daily
