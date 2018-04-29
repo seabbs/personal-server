@@ -27,13 +27,13 @@ services:
     image: seabbs/h2o_tweets:latest
     volumes:
       - ../secrets/h2o_tweets:/home/auth
-    command: ["cp -a ../auth/. ../ && touch logs && tail -f logs"]
+    command: ["cp", "-a", "../auth/." , "../", "&&", "touch", "tmp.logs", "&&", "tail", "-f", "tmp.logs"]
   tweetrstudiocheatsheets:
     container_name: tweetrstudiocheatsheets
     image: seabbs/tweetrstudiocheatsheets:latest
     volumes:
-      - ../secrets/tweetrstudiocheatsheets:home/TweetRstudioCheatsheets/storage
-    command: ["touch logs && tail -f logs"]
+      - ../secrets/tweetrstudiocheatsheets:/home/TweetRstudioCheatsheets/storage
+    command: ["Rscript", "bot.R"]
   shinyproxy:
     container_name: shinyproxy
     build: shinyproxy

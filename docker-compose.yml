@@ -6,29 +6,32 @@ services:
     ports:
       - 8787:8787
     volumes:
-      - /public_projects:/home/rstudio/public_projects
-      - /private_projects:/home/rstudio/private_projects
+      - ./public_projects:/home/rstudio/public_projects
+      - ./private_projects:/home/rstudio/private_projects
     env_file:
-      - /secrets/rstudio/creds.env
+      - ./secrets/rstudio/creds.env
+    restart: always
   jenkins:
     container_name: jenkins
-    build: jenkins
+    build: containers/jenkins
     image: jenkins
     ports:
       - 9090:8080
       - 50000:50000
     volumes:
-      - /secrets/jenkins:/var/jenkins_home
+      - ./secrets/jenkins:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/local/bin/docker:/usr/bin/docker
+    restart: always
   shinyproxy:
     container_name: shinyproxy
-    build: shinyproxy
+    build: containers/shinyproxy
     image: shinyproxy
     ports:
       - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
 networks:
   default:
     external:
