@@ -50,6 +50,7 @@ services:
       - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ../secrets/nginx_proxy:/home/samabbott/
   exploreidmodels:
     container_name: exploreidmodels
     image: exploreidmodels
