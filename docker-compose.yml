@@ -8,7 +8,7 @@ services:
       - 443:443
     volumes:
       - ./secrets/nginx_proxy:/etc/ssl/
-      restart: always
+    restart: always
   rstudio:
     container_name: rstudio
     image: rocker/tidyverse:latest
@@ -40,7 +40,7 @@ services:
       - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /secrets/nginx_proxy:/home/samabbott/
+      - ./secrets/nginx_proxy:/home/samabbott/
     restart: always
 networks:
   default:
