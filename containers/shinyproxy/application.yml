@@ -41,7 +41,7 @@ shiny:
     display-name: Funding Circle Dashboard
     description: Visualise and explore both the public Funding Circle loanbook and your own.
     docker-image: seabbs/fcdashboard
-    docker-volumes: ["/Users/samabbott/personal-server/secrets/fcdashboard/loanbook.csv:/home/fcdashboard/loanbook.csv"]
+    docker-volumes: ["/usr/samabbott/personal-server/secrets/fcdashboard/loanbook.csv:/home/fcdashboard/loanbook.csv"]
     docker-network: shinyproxy-net
   - name: showmeperseus
     display-name: Show Me Perseus
