@@ -29,7 +29,6 @@ services:
     volumes:
       - ../secrets/jenkins:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-      - /usr/local/bin/docker:/usr/bin/docker
   h2o_tweets:
     container_name: h2o_tweets
     image: seabbs/h2o_tweets:latest
