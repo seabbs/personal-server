@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rstudio
+spec:
+  selector:
+    matchLabels:
+      run: rstudio
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: rstudio
+    spec:
+      containers:
+      - name: rstudio
+        securityContext:
+          privileged: true
+        image: rocker/tidyverse:latest
+        ports:
+        - containerPort: 8787
+        imagePullPolicy : Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rstudio-service
+  labels:
+    app: rstudio
+spec:
+  type: NodePort
+  selector:
+    run: rstudio
+  ports:
+  - protocol: TCP
+    port: 8787
+    targetPort: 8787
+    nodePort: 31000
+---

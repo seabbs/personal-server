@@ -1,7 +1,65 @@
 
 
 
+
 # Set-up
+
+## Kubernetes
+
+Based on [this](http://code.markedmondson.me/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts/) post.
+- Set up a kubernetes cluster on google cloud and install gcloud and kubectl. Configure you computer to connect to the cluster.
+
+- Install Helm
+
+```
+curl -o get_helm.sh https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get
+chmod +x get_helm.sh
+./get_helm.sh
+
+```
+
+- Install Tiller on the cluster
+
+```
+kubectl create serviceaccount tiller --namespace kube-system
+```
+
+- Bind the Tiller service to the cluster-admin role (using `tiller-clusterrolebinding.yaml`) and deploy on the cluster.
+
+```
+kubectl create -f deployments/tiller-clusterrolebinding.yaml
+```
+
+- Update the existing tiller-deploy deployment with the service account you created.
+
+```
+helm init --service-account tiller --upgrade
+```
+
+- Test the new Helm, the following should execute without errors.
+
+```
+helm ls
+```
+
+- Deploy nginx Ingress Controller using Helm.
+
+```
+helm install --name nginx-ingress stable/nginx-ingress --set rbac.create=true
+```
+
+- Deploy the Rstudio server using
+
+```
+kubectl create -f deployments/rstudio.yaml
+```
+
+- Update the `r-ingress-nginx.yaml`
+
+```
+kubectl apply -f deployments/r-ingress-nginx.yaml
+```
+## Containers
 
 1. Add required secrets to the `secrets` folder. Subdirectories are named based on the container they provide secrets for. Required container secrets are, 
 	1. `fcdashboard` - folder containing a copy of the loanbook saved as `loanbook.csv`.
@@ -39,8 +97,3 @@ I plan to convert the docker infrastructure deployed above with `docker-compose`
 
 # To do's
 
-- [ ] Set up scheduling:
-		- Rstudio server to refresh daily
-		- H2o tweets, every 15 minutes
-		- H2o tweets summary, every month
-		- Cheatsheets, daily
