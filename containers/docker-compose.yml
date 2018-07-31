@@ -13,7 +13,7 @@ services:
     container_name: rstudio
     image: rocker/tidyverse:latest
     ports:
-      - 8787:8787
+      - 8888:8787
     volumes:
       - ../public_projects:/home/rstudio/public_projects
       - ../private_projects:/home/rstudio/private_projects
@@ -67,7 +67,7 @@ services:
     ports:
       - 3840:3838
     volumes:
-      - ../secrets/fcdashboard/loanbook.csv:/home/fcdashboard/loanbook.csv
+      - ../secrets/fcdashboard:/home/fcdashboard/storage/
   thepebblegame:
     container_name: thepebblegame
     image: seabbs/thepebblegame:latest
