@@ -1,4 +1,4 @@
-FROM nginx:1.13-alpine
+FROM nginx:stable
 
 
-COPY nginx.conf /etc/nginx/sites-enabled/default
+COPY  nginx.conf /etc/nginx/nginx.conf
