@@ -1,6 +1,11 @@
 proxy:
   port: 8080
-  authentication: none
+  authentication: simple
+  admin-groups: admins
+  users:
+  - name: jack
+    password: password
+    groups: admins
   docker:
       internal-networking: true
   specs:
