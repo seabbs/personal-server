@@ -1,7 +1,7 @@
 shiny:
   proxy:
-    title: Sam Abbott's Applications
-    logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/portrait.jpg
+    title: Applications
+    logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/logo.png
     landing-page: /
     heartbeat-rate: 10000
     heartbeat-timeout: 60000
