@@ -8,7 +8,5 @@ docker network create shinyproxy-net
 docker-compose -f containers/docker-compose.yml pull --ignore-pull-failures
 ## Build all custom images
 docker-compose -f containers/docker-compose.yml build
-## Change permissions for jenkins folder
-sudo chown -R 1000:1000 secrets/jenkins
 ## Launch required control containers
 docker-compose up
