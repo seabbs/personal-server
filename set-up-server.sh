@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## Check that you have the most up to date repo
+git pull
 ## Get secrets from google cloud containers
 bash get_from_bucket.sh
 ## Create a docker network to link containers
