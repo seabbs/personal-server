@@ -29,4 +29,9 @@ RUN sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/dock
 
 RUN sudo chmod +x /usr/local/bin/docker-compose
 
+## Make a personal server directory for jenkins
+RUN mkdir /var/personal-server
+RUN chown -R 1000:1000 /var/personal-server
+
+## Set Jenkins user
 USER jenkins

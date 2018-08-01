@@ -31,7 +31,7 @@ services:
       - 50000:50000
     volumes:
       - ./secrets/jenkins:/var/jenkins_home
-      - ../personal-server:/opt/jenkins_home
+      - ../personal-server:/var/personal-server
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
   shinyproxy:
