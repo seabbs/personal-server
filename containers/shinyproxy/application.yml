@@ -1,4 +1,9 @@
 proxy:
+  title: Applications
+  logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/logo.png
+  landing-page: /
+  heartbeat-rate: 10000
+  heartbeat-timeout: 60000
   port: 8080
   authentication: simple
   admin-groups: admins
