@@ -19,6 +19,12 @@ proxy:
     container-cmd: ["R", "-e", "shinyproxy::run_06_tabsets()"]
     container-image: openanalytics/shinyproxy-demo
     container-network: sp-example-net
+  - id: exploreglobaltb
+    display-name: Explore Global Tuberculosis - with getTBinR
+    description: An app harnessing the functionality of getTBinR to allow the exploration of World Health Organisation Tuberculosis data.
+    logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/logo.png
+    container-image: exploreglobaltb
+    container-network: shinyproxy-net
 
 logging:
   file:
