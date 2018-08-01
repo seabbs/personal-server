@@ -1,58 +1,51 @@
-proxy:
-  title: Applications
-  logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/logo.png
-  landing-page: /
-  heartbeat-rate: 10000
-  heartbeat-timeout: 60000
-  port: 8080
-  authentication: none
-  docker:
-    internal-networking: true
+shiny:
+  proxy:
+    title: Applications
+    logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/logo.png
+    landing-page: /
+    heartbeat-rate: 10000
+    heartbeat-timeout: 60000
+    port: 8080
+    authentication: none
+    docker:
+      internal-networking: true
   apps:
   - name: exploreglobaltb
     display-name: Explore Global Tuberculosis - with getTBinR
     description: An app harnessing the functionality of getTBinR to allow the exploration of World Health Organisation Tuberculosis data.
-    logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/logo.png
     docker-image: exploreglobaltb
     docker-network: shinyproxy-net
   - name: tb_england_wales
     display-name: Tuberculosis in England and Wales
     description: Exploring public data on Tuberculosis in England and Wales using interactive dashboards.
-    logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/logo.png
     docker-image: tb_england_wales
     docker-network: shinyproxy-net
   - name: intro_to_tb_models
     display-name: Introduction to Tuberculosis Models
     description: An app recreating the models used in the practicals for the Intro to TB modelling course at the 2017 Union Conference.
-    logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/logo.png
     docker-image: seabbs/intro_to_tb_models
     docker-network: shinyproxy-net
-  - name: explorenamemodels
+  - name: exploreidmodels
     display-name: Explore Infectious Disease Models
     description: An app which allows the exploration of the dynamics of a range of simple infectious disease models.
-    logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/logo.png
-    docker-image: explorenamemodels
+    docker-image: exploreidmodels
     docker-network: shinyproxy-net
   - name: thepebblegame
     display-name: The Pebble Game
-    description: A simple game that can be used to understand some of the mathematics underlying epnameemics and vaccination.
-    logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/logo.png
+    description: A simple game that can be used to understand some of the mathematics underlying epidemics and vaccination.
     docker-image: seabbs/thepebblegame
     docker-network: shinyproxy-net
   - name: fcdashboard
     display-name: Funding Circle Dashboard
     description: Visualise and explore both the public Funding Circle loanbook and your own.
-    logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/logo.png
     docker-image: seabbs/fcdashboard
     docker-volumes: ["/home/s_e_abbott12/personal-server/secrets/fcdashboard/:/home/fcdashboard/storage/"]
     docker-network: shinyproxy-net
   - name: showmeperseus
     display-name: Show Me Perseus
     description: A shiny app to remove potential friction for new R users when using the R perseus package.
-    logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/logo.png
     docker-image: showmeperseus
     docker-network: shinyproxy-net
-
 logging:
   file:
     shinyproxy.log
