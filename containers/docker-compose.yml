@@ -36,7 +36,7 @@ services:
     image: seabbs/h2o_tweets:latest
     volumes:
       - ../secrets/h2o_tweets:/home/auth
-    command: ["cp", "-a", "../auth/." , "../", "&&", "touch", "tmp.logs", "&&", "tail", "-f", "tmp.logs"]
+    command: ["cp", "-a", "../auth/." , "../", "&&", "Rscript",  "R/stack_tweet_bot.R"]
   tweetrstudiocheatsheets:
     container_name: tweetrstudiocheatsheets
     image: seabbs/tweetrstudiocheatsheets:latest
