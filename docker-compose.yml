@@ -18,6 +18,7 @@ services:
     volumes:
       - ./public_projects:/home/rstudio/public_projects
       - ./private_projects:/home/rstudio/private_projects
+      - ./scripts:/home/rstudio/scripts
     env_file:
       - ./secrets/rstudio/creds.env
     restart: always
@@ -30,6 +31,7 @@ services:
       - 50000:50000
     volumes:
       - ./secrets/jenkins:/var/jenkins_home
+      - ./scripts:/home/jenkins/scripts
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
   shinyproxy:
