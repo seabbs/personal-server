@@ -22,10 +22,6 @@ proxy:
     container-cmd: ["R", "-e", "shinyproxy::run_01_hello()"]
     container-image: openanalytics/shinyproxy-demo
     container-network: sp-example-net
-  - id: 06_tabsets
-    container-cmd: ["R", "-e", "shinyproxy::run_06_tabsets()"]
-    container-image: openanalytics/shinyproxy-demo
-    container-network: sp-example-net
 
 logging:
   file:
