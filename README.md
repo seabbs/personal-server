@@ -75,6 +75,10 @@ cd ..
 bash personal-server/push_to_bucket.sh
 ```
 
+## Connecting to the server
+
+If properly configured the Shinyproxy instance can be found at [apps.samabbott.co.uk](https://apps.samabbott.co.uk), with the Rstudio instance at [rstudio.samabbott.co.uk](https://rstudio.samabbott.co.uk) (password controlled via `secrets`). In order to access the Jenkins server connect over ssh, forwarding `9090`. Similarly both the ShinyProxy instance and the Rstudio instance may also be accessed using port forwarding (`8080` and `8888` respectively). 
+
 ## Future developments
 
 Below are the current aims for this repo, any suggestions for improvements are welcome.
