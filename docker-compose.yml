@@ -83,7 +83,7 @@ services:
       - NETWORK_ACCESS=internal
     # Look for new images every 5 minutes and removes old images
     # Removing --no-pull will allow watchtower to get images from repos (will not work for built images)
-    command: --schedule "*/5 * * * * *" --cleanup --no-pull
+    command: --schedule "*/5 * * * * *" --cleanup --no-pull shinyproxy jenkins rstudio nginx-gen nginx
 
 volumes:
   nginx: #For sharing nginx config
