@@ -55,9 +55,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/.docker/config.json:/config.json
-    # Look for new images every hour and removes old images
+    # Look for new images every 5 minutes and removes old images
     # Removing --no-pull will allow watchtower to get images from repos (will not work for built images)
-    command: --schedule "0 0 * *" --cleanup --no-pull
+    command: --schedule "0 */5 * *" --cleanup --no-pull
 networks:
   default:
     external:
