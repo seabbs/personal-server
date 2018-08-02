@@ -13,4 +13,4 @@ docker-compose -f containers/docker-compose.yml build
 ## Change permissions for jenkins folder
 sudo chown -R 1000:1000 secrets/jenkins
 ## Launch required control containers
-docker-compose up
+docker-compose up -d
