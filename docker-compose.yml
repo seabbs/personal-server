@@ -4,13 +4,14 @@ services:
   nginx:
     container_name: nginx
     image: nginx
+    expose:
+      - 80
+      - 443
     ports:
       - 80:80
       - 443:443
     volumes:
-      - conf:/etc/nginx/conf.d
-      - vhost:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
+      - nginx:/etc/nginx/conf.d
       - ./secrets/nginx:/etc/nginx/certs:rw
     restart: always
   #Generate proxy settings for containers
@@ -23,9 +24,9 @@ services:
       -  /var/run/docker.sock:/tmp/docker.sock:ro
       - ./volumes/proxy/templates:/etc/docker-gen/templates
       - ./secrets/nginx:/etc/nginx/certs:rw
-      - conf:/etc/nginx/conf.d
-      - vhost:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
+      - nginx:/etc/nginx/conf.d
+    environment:
+      - ENABLE_IPV6=true
     entrypoint: /usr/local/bin/docker-gen -notify-sighup nginx -watch -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
     restart: always
 # Rstudio server
@@ -45,7 +46,6 @@ services:
     environment:
       - VIRTUAL_HOST=rstudio.samabbott.co.uk
       - VIRTUAL_PROTO=https
-      - VIRTUAL_PORT=443
     restart: always
 # Jenkins handles automated builds
   jenkins:
@@ -76,7 +76,6 @@ services:
     environment:
       - VIRTUAL_HOST=apps.samabbott.co.uk
       - VIRTUAL_PROTO=https
-      - VIRTUAL_PORT=443
     restart: always
 # Watchtower is a process for watching your Docker containers and automatically
 # updating and restarting them whenever their base image is refreshed.
@@ -94,9 +93,7 @@ services:
 #    command: --schedule "*/5 * * * * *" --cleanup --no-pull shinyproxy jenkins rstudio nginx-gen nginx
 
 volumes:
-  conf:
-  vhost:
-  html:
+  nginx: #Volume for nginx config
 
 networks:
   default:
