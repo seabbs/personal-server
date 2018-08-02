@@ -92,7 +92,7 @@ If properly configured the Shinyproxy instance can be found at [apps.samabbott.c
 
 ## Updating
 
-To update containers use `docker-compose -f containers/docker-compose.yml pull <container-name>` to update built images and `docker-compose -f containers/docker-compose.yml build <container-name>` to update container builds. Then bring down the running container using `docker-compose down <container-name>` and relaunch it using `docker-compose up <container-name>`. Alternatively a Watchtower container is monitoring the available images and each hour will refresh the running images with the newly avaiable image. Before updating the Jenkins container be sure to back up the jenkins folder using `bash push_to_bucket.sh`.
+To update containers use `docker-compose -f containers/docker-compose.yml pull <container-name>` to update built images and `docker-compose -f containers/docker-compose.yml build <container-name>` to update container builds. Then bring down the running container using `docker-compose down <container-name>` and relaunch it using `docker-compose up <container-name>`. Alternatively a [Watchtower container](https://github.com/v2tec/watchtower) is monitoring the available images and every 5 minutes will refresh the running images with the newly available image. Before updating the Jenkins container be sure to back up the jenkins folder using `bash push_to_bucket.sh`.
 
 ## Future developments
 
