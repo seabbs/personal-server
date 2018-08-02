@@ -2,9 +2,11 @@
 
 This repository contains the docker containers and `docker-compose.yml`'s required to launch my personal server. Applications hosted by this server can be found at [apps.samabbott.co.uk](https://apps.samabbott.co.uk), although the server is designed to serve users from [samabbott.co.uk](https://www.samabbott.co.uk/#projects).
 
-Modification to another use case should be straightforward. Any suggestions for improvement are welcome.
+Modification to another use case should be straightforward. Any suggestions for improvements are welcome.
 
 ## Set-up
+
+The server can be launched using the following `bash` commands (implemented in the `set-up-server.sh` bash script) once the secrets folder has been setup as required.
 
 -  Add required secrets to the `secrets` folder. Subdirectories are named based on the container they provide secrets for. Required container secrets are listed in `containers/docker-compose.yml`
 
@@ -38,12 +40,12 @@ sudo chown -R 1000:1000 secrets/jenkins
  docker-compose up -d
 ```
 
-There should now be a shinyproxy instance at `8080` , a jenkins instance at `9090`, and an Rstudio instance at `8888`. All the commands seen here (using Google Cloud tools and bucket storage) have been implemented in the `set-up-server.sh` bash script.
+There should now be a shinyproxy instance at `8080` , a jenkins instance at `9090`, and an Rstudio instance at `8888`.
 
 
 ## Scheduled jobs
 
-The Jenkins instance is used to run scheduled docker containers. Currently these jobs are;
+The Jenkins instance (found at `localhost:9090`) is used to run scheduled docker containers. Currently these jobs are;
 
 - Run the [`h2o` StackOverflow Twitter bot](https://github.com/seabbs/h2o_tweets) every 15 minutes (`H/15 * * * *`) with,
 
@@ -74,6 +76,8 @@ bash personal-server/push_to_bucket.sh
 ```
 
 ## Future developments
+
+Below are the current aims for this repo, any suggestions for improvements are welcome.
 
 - [ ] Automated tear down and restarting of Rstudio Server on R release.
 - [ ] Jupyter Notebook hosting.
