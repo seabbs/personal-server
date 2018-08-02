@@ -56,8 +56,8 @@ services:
       - 9090:8080
       - 50000:50000
     volumes:
-      - ./secrets/jenkins:/var/jenkins_home
-      - ../personal-server:/var/personal-server
+      - ./secrets/jenkins:/var/jenkins_home:rw
+      - ../personal-server:/var/personal-server:rw
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - NETWORK_ACCESS=internal
