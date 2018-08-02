@@ -24,7 +24,7 @@ git clone https://github.com/seabbs/personal-server.git
 - Add docker network
 
 ```bash
-docker network create server-net
+docker network create shinyproxy-net
 ```
 
 - Pull all images.
