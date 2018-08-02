@@ -1,14 +1,6 @@
 
 version: '3'
 services:
-  nginx_proxy:
-    image: nginx_proxy
-    build: nginx_proxy
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - ../secrets/nginx_proxy:/etc/ssl/
   rstudio:
     container_name: rstudio
     image: rocker/tidyverse:latest
