@@ -90,4 +90,4 @@ volumes:
 networks:
   default:
     external:
-      name: server-net
+      name: shinyproxy-net
