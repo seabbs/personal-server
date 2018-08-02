@@ -86,12 +86,4 @@ If properly configured the Shinyproxy instance can be found at [apps.samabbott.c
 
 ## Future developments
 
-Below are the current aims for this repo, any suggestions for improvements are welcome.
-
-- [ ] Automated tear down and restarting of Rstudio Server on R release.
-- [ ] Jupyter Notebook hosting.
-- [ ] Transition to Kubernetes (using Google Cloud managed service).
-- [ ] Transition to Shinyproxy `2.0.0` after key bugs are fixed.
-- [ ] Shinyproxy default to public access with some restricted apps.
-- [ ] Shinyproxy logging
-- [ ] Link to database service for persistent data storage.
+See the [GitHub issues](https://github.com/seabbs/personal-server/issues) for planned bug fixes and enhancements. Any suggestions or bug reports are welcome.
