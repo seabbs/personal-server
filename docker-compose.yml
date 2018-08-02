@@ -46,6 +46,8 @@ services:
     environment:
       - VIRTUAL_HOST=rstudio.samabbott.co.uk
       - VIRTUAL_PROTO=https
+      - VIRTUAL_NETWORK=shinyproxy-net
+      - VIRTUAL_PORT=443
     restart: always
 # Jenkins handles automated builds
   jenkins:
@@ -76,6 +78,8 @@ services:
     environment:
       - VIRTUAL_HOST=apps.samabbott.co.uk
       - VIRTUAL_PROTO=https
+      - VIRTUAL_NETWORK=shinyproxy-net
+      - VIRTUAL_PORT=443
     restart: always
 # Watchtower is a process for watching your Docker containers and automatically
 # updating and restarting them whenever their base image is refreshed.
@@ -94,6 +98,7 @@ services:
 
 volumes:
   nginx: #Volume for nginx config
+
 
 networks:
   default:
