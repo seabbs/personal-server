@@ -50,6 +50,7 @@ services:
 # Watchtower is a process for watching your Docker containers and automatically
 # updating and restarting them whenever their base image is refreshed.
   watchtower:
+    container_name: watchtower
     restart: always
     image: v2tec/watchtower
     volumes:
@@ -57,7 +58,7 @@ services:
       - /root/.docker/config.json:/config.json
     # Look for new images every 5 minutes and removes old images
     # Removing --no-pull will allow watchtower to get images from repos (will not work for built images)
-    command: --schedule "0 */5 * *" --cleanup --no-pull
+    command: --schedule "*/5 * * * * *" --cleanup --no-pull
 networks:
   default:
     external:
