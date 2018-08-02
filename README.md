@@ -1,6 +1,6 @@
 # Personal Server
 
-This repository contains the docker containers and `docker-compose.yml`'s required to launch my personal server. Applications hosted by this server can be found at [apps.samabbott.co.uk](https://apps.samabbott.co.uk), although the server is designed to serve users from [samabbott.co.uk](https://www.samabbott.co.uk/#projects).
+This repository contains the docker containers and `docker-compose.yml`'s required to launch my personal server. Applications hosted by this server can be found at [apps.samabbott.co.uk](https://apps.samabbott.co.uk), although the server is designed to serve users from [samabbott.co.uk/#projects](https://www.samabbott.co.uk/#projects).
 
 Modification to another use case should be straightforward. Any suggestions for improvements are welcome.
 
