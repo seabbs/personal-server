@@ -84,4 +84,5 @@ Below are the current aims for this repo, any suggestions for improvements are w
 - [ ] Transition to Kubernetes (using Google Cloud managed service).
 - [ ] Transition to Shinyproxy `2.0.0` after key bugs are fixed.
 - [ ] Shinyproxy default to public access with some restricted apps.
+- [ ] Shinyproxy logging
 - [ ] Link to database service for persistent data storage.
