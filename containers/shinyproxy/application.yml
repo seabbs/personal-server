@@ -12,11 +12,6 @@ shiny:
     docker:
       internal-networking: true
   apps:
-  - name: 01_hello
-    display-name: Hello Application
-    description: Application which demonstrates the basics of a Shiny app
-    docker-cmd: ["R", "-e", "shinyproxy::run_01_hello()"]
-    docker-image: openanalytics/shinyproxy-demo
   - name: exploreglobaltb
     display-name: Explore Global Tuberculosis - with getTBinR
     description: An app harnessing the functionality of getTBinR to allow the exploration of World Health Organisation Tuberculosis data.
