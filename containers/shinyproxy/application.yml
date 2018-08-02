@@ -5,6 +5,7 @@ shiny:
     landing-page: /
     heartbeat-rate: 10000
     heartbeat-timeout: 120000
+    container-wait-time: 30000
     hide-navbar: true
     port: 8080
     authentication: none
