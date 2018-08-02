@@ -72,18 +72,18 @@ services:
     restart: always
 # Watchtower is a process for watching your Docker containers and automatically
 # updating and restarting them whenever their base image is refreshed.
-  watchtower:
-    container_name: watchtower
-    restart: always
-    image: v2tec/watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /root/.docker/config.json:/config.json
-    environment:
-      - NETWORK_ACCESS=internal
+#  watchtower:
+#    container_name: watchtower
+#    restart: always
+#    image: v2tec/watchtower
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - /root/.docker/config.json:/config.json
+#    environment:
+#      - NETWORK_ACCESS=internal
     # Look for new images every 5 minutes and removes old images
     # Removing --no-pull will allow watchtower to get images from repos (will not work for built images)
-    command: --schedule "*/5 * * * * *" --cleanup --no-pull shinyproxy jenkins rstudio nginx-gen nginx
+#    command: --schedule "*/5 * * * * *" --cleanup --no-pull shinyproxy jenkins rstudio nginx-gen nginx
 
 volumes:
   nginx: #For sharing nginx config
