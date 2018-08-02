@@ -32,8 +32,8 @@ services:
   rstudio:
     container_name: rstudio
     image: rocker/tidyverse:latest
-    ports:
-      - 8888:8787
+    expose:
+      - 8787
     volumes:
       - ./public_projects:/home/rstudio/public_projects
       - ./private_projects:/home/rstudio/private_projects
@@ -66,8 +66,8 @@ services:
     container_name: shinyproxy
     build: containers/shinyproxy
     image: shinyproxy
-    ports:
-      - 8080:8080
+    expose:
+      - 8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
