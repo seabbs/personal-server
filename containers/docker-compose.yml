@@ -36,8 +36,8 @@ services:
     image: seabbs/h2o_tweets:latest
     volumes:
       - ../secrets/h2o_tweets:/home/h2o_tweets/auth
-      - ../scripts/bin/:/home/h2o_tweets/bin
-    command: ["bash bin/run.sh"]
+      - ../scripts/bin:/home/h2o_tweets/bin
+    command: ["bash bin/run_h2o_bot.sh"]
   tweetrstudiocheatsheets:
     container_name: tweetrstudiocheatsheets
     image: seabbs/tweetrstudiocheatsheets:latest
