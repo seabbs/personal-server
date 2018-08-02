@@ -3,7 +3,7 @@
 ## Check that you have the most up to date repo
 git pull
 ## Get secrets from google cloud containers
-bash get_from_bucket.sh
+sudo bash get_from_bucket.sh
 ## Create a docker network to link containers
 docker network create server-net
 ## Pull all required images - errors are from containers that need to be built
