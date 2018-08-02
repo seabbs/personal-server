@@ -34,6 +34,8 @@ services:
     image: rocker/tidyverse:latest
     expose:
       - 8787
+    ports:
+      - 8888:8787
     volumes:
       - ./public_projects:/home/rstudio/public_projects
       - ./private_projects:/home/rstudio/private_projects
@@ -68,6 +70,8 @@ services:
     image: shinyproxy
     expose:
       - 8080
+    ports:
+      - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
