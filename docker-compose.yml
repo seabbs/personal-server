@@ -1,5 +1,6 @@
 version: '3'
 services:
+# Proxy to forward https connections to shinyproxy and rstudio
   nginx_proxy:
     container_name: nginx_proxy
     image: nginx_proxy
@@ -10,6 +11,7 @@ services:
     volumes:
       - ./secrets/nginx_proxy:/etc/ssl/
     restart: always
+# Rstudio server
   rstudio:
     container_name: rstudio
     image: rocker/tidyverse:latest
@@ -22,6 +24,7 @@ services:
     env_file:
       - ./secrets/rstudio/creds.env
     restart: always
+# Jenkins handles automated builds
   jenkins:
     container_name: jenkins
     build: containers/jenkins
@@ -34,6 +37,7 @@ services:
       - ../personal-server:/var/personal-server
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
+# Launch shinyproxy for managing shiny apps
   shinyproxy:
     container_name: shinyproxy
     build: containers/shinyproxy
@@ -43,7 +47,18 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
+# Watchtower is a process for watching your Docker containers and automatically
+# updating and restarting them whenever their base image is refreshed.
+  watchtower:
+    restart: always
+    image: v2tec/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/.docker/config.json:/config.json
+    # Look for new images every hour and removes old images
+    # Removing --no-pull will allow watchtower to get images from repos (will not work for built images)
+    command: --schedule "0 0 * *" --cleanup --no-pull
 networks:
   default:
     external:
-      name: shinyproxy-net
+      name: server-net

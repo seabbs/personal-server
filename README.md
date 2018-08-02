@@ -1,6 +1,12 @@
 # Personal Server
 
-This repository contains the docker containers and `docker-compose.yml`'s required to launch my personal server. Applications hosted by this server can be found at [apps.samabbott.co.uk](https://apps.samabbott.co.uk), although the server is designed to serve users from [samabbott.co.uk/#projects](https://www.samabbott.co.uk/#projects).
+This repository contains the docker containers and `docker-compose.yml`'s required to launch my personal server. Applications hosted by this server can be found at [apps.samabbott.co.uk](https://apps.samabbott.co.uk), although the server is designed to serve users from [samabbott.co.uk/#projects](https://www.samabbott.co.uk/#projects). It makes use of the following services,
+
+- [Shinyproxy](https://www.shinyproxy.io)
+- [Rstudio server (via rocker)](https://hub.docker.com/r/rocker/tidyverse/)
+- [Jenkins](https://jenkins.io)
+- [Nginx](http://nginx.org)
+- [Watchtower](https://github.com/v2tec/watchtower)
 
 Modification to another use case should be straightforward. Any suggestions for improvements are welcome.
 
@@ -18,7 +24,7 @@ git clone https://github.com/seabbs/personal-server.git
 - Add docker network
 
 ```bash
-docker network create shinyproxy-net
+docker network create server-net
 ```
 
 - Pull all images.
@@ -86,7 +92,7 @@ If properly configured the Shinyproxy instance can be found at [apps.samabbott.c
 
 ## Updating
 
-To update containers use `docker-compose -f containers/docker-compose.yml pull <container-name>` to update built images and `docker-compose -f containers/docker-compose.yml build <container-name>` to update container builds. Then bring down the running container using `docker-compose down <container-name>` and relaunch it using `docker-compose up <container-name>`. Before updating the Jenkins container be sure to back up the jenkins folder using `bash push_to_bucket.sh`.
+To update containers use `docker-compose -f containers/docker-compose.yml pull <container-name>` to update built images and `docker-compose -f containers/docker-compose.yml build <container-name>` to update container builds. Then bring down the running container using `docker-compose down <container-name>` and relaunch it using `docker-compose up <container-name>`. Alternatively a Watchtower container is monitoring the available images and each hour will refresh the running images with the newly avaiable image. Before updating the Jenkins container be sure to back up the jenkins folder using `bash push_to_bucket.sh`.
 
 ## Future developments
 
