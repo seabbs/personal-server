@@ -84,6 +84,10 @@ bash personal-server/push_to_bucket.sh
 
 If properly configured the Shinyproxy instance can be found at [apps.samabbott.co.uk](https://apps.samabbott.co.uk), with the Rstudio instance at [rstudio.samabbott.co.uk](https://rstudio.samabbott.co.uk) (password controlled via `secrets`). In order to access the Jenkins server connect over ssh, forwarding `9090`. Similarly both the ShinyProxy instance and the Rstudio instance may also be accessed using port forwarding (`8080` and `8888` respectively).
 
+## Updating
+
+To update containers use `docker-compose -f containers/docker-compose.yml pull <container-name>` to update built images and `docker-compose -f containers/docker-compose.yml build <container-name>` to update container builds. Then bring down the running container using `docker-compose down <container-name>` and relaunch it using `docker-compose up <container-name>`. Before updating the Jenkins container be sure to back up the jenkins folder using `bash push_to_bucket.sh`.
+
 ## Future developments
 
 See the [GitHub issues](https://github.com/seabbs/personal-server/issues) for planned bug fixes and enhancements. Any suggestions or bug reports are welcome.
