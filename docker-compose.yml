@@ -12,9 +12,9 @@ services:
       - 443:443
     volumes:
       - conf:/etc/nginx/conf.d
-      - vhost:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-      - certs:/etc/nginx/certs:rw
+    ##  - vhost:/etc/nginx/vhost.d
+    ##  - html:/usr/share/nginx/html
+    ##  - certs:/etc/nginx/certs:rw
     restart: always
   #Generate proxy settings for containers
   nginx-gen:
@@ -25,7 +25,7 @@ services:
     volumes:
       -  /var/run/docker.sock:/tmp/docker.sock:ro
       - ./volumes/proxy/templates:/etc/docker-gen/templates
-      - certs:/etc/nginx/certs:rw
+    ##  - certs:/etc/nginx/certs:rw
       - conf:/etc/nginx/conf.d
     environment:
       - ENABLE_IPV6=true
@@ -64,7 +64,7 @@ services:
       - ./secrets/rstudio/creds.env
     environment:
       - VIRTUAL_HOST=rstudio.seabbs.co.uk
-      - VIRTUAL_PROTO=https
+      - VIRTUAL_PROTO=http
       - VIRTUAL_NETWORK=shinyproxy-net
       - VIRTUAL_PORT=8888
       - LETSENCRYPT_HOST=rstudio.seabbs.co.uk
@@ -97,7 +97,7 @@ services:
       - ./volumes/shinyproxy:/opt/shinyproxy/app_yml:rw
     environment:
       - VIRTUAL_HOST=apps.seabbs.co.uk
-      - VIRTUAL_PROTO=https
+      - VIRTUAL_PROTO=http
       - VIRTUAL_NETWORK=shinyproxy-net
       - VIRTUAL_PORT=8080
       - LETSENCRYPT_HOST=apps.seabbs.co.uk
