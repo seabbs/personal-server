@@ -44,7 +44,8 @@ services:
       - html:/usr/share/nginx/html
       - certs:/etc/nginx/certs:rw
     environment:
-      - NGINX_PROXY_CONTAINER=nginx-gen
+      - NGINX_PROXY_CONTAINER=nginx
+      - NGINX_DOCKER_GEN_CONTAINER=nginx-gen
     restart: always
 # Rstudio server
   rstudio:
