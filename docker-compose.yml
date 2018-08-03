@@ -111,13 +111,14 @@ services:
     image: v2tec/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /root/.docker/config.json:/config.json
+    ## Use below if pulling from private docker registries
+    ##  - /home/<user>/.docker/config.json:/config.json
     environment:
       - NETWORK_ACCESS=internal
     # Look for new images every hour and removes old images
     # --no-pull will allow watchtower to get images from repos (will not work for built images)
     # Shinyproxy and shiny apps in containers/docker-compose.yml must be updated manually
-    command: --schedule "0 * * * * *" --cleanup jenkins rstudio nginx-gen nginx letsencrypt-nginx-proxy-companion
+    command: --schedule "0 * * * * *" --cleanup jenkins-with-docker rstudio nginx-gen nginx letsencrypt-nginx-proxy-companion
 
 volumes:
   conf: #Volume for nginx config
