@@ -45,7 +45,7 @@ services:
       - ./secrets/rstudio/creds.env
     environment:
       - VIRTUAL_HOST=rstudio.samabbott.co.uk
-      - VIRTUAL_PROTO=https
+      - VIRTUAL_PROTO=http
       - VIRTUAL_NETWORK=shinyproxy-net
       - VIRTUAL_PORT=8787
     restart: always
@@ -77,7 +77,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - VIRTUAL_HOST=apps.samabbott.co.uk
-      - VIRTUAL_PROTO=https
+      - VIRTUAL_PROTO=http
       - VIRTUAL_NETWORK=shinyproxy-net
       - VIRTUAL_PORT=8080
     restart: always
