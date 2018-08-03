@@ -32,8 +32,8 @@ services:
     entrypoint: /usr/local/bin/docker-gen -notify-sighup nginx -watch -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
     restart: always
   # Generate certs using letsencrypt
-  letsencrypt-nginx-proxy-companion:
-    container_name: letsencrypt-nginx-proxy-companion
+  nginx-letsencrypt:
+    container_name: nginx-letsencrypt
     image: jrcs/letsencrypt-nginx-proxy-companion
     depends_on:
       - nginx
@@ -118,7 +118,7 @@ services:
     # Look for new images every hour and removes old images
     # --no-pull will allow watchtower to get images from repos (will not work for built images)
     # Shinyproxy and shiny apps in containers/docker-compose.yml must be updated manually
-    command: --schedule "0 * * * * *" --cleanup jenkins shinyproxy rstudio nginx-gen nginx letsencrypt-nginx-proxy-companion
+    command: --schedule "0 * * * * *" --cleanup jenkins shinyproxy rstudio nginx-gen nginx nginx-letsencrypt
 
 volumes:
   conf: #Volume for nginx config
