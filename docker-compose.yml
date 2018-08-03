@@ -44,7 +44,7 @@ services:
       - html:/usr/share/nginx/html
       - certs:/etc/nginx/certs:rw
     environment:
-      - NGINX_DOCKER_GEN_CONTAINER=nginx-gen
+      - NGINX_PROXY_CONTAINER=nginx-gen
     restart: always
 # Rstudio server
   rstudio:
@@ -99,7 +99,7 @@ services:
       - VIRTUAL_PROTO=https
       - VIRTUAL_NETWORK=shinyproxy-net
       - VIRTUAL_PORT=8080
-      - LETSENCRYPT_HOST=rstudio.samabbott.co.uk
+      - LETSENCRYPT_HOST=apps.samabbott.co.uk
       - LETSENCRYPT_EMAIL=contact@samabbott.co.uk
     restart: always
 # Watchtower to watch docker images and update those running automatically
