@@ -5,8 +5,8 @@ shiny:
     landing-page: /
     heartbeat-rate: 10000
     heartbeat-timeout: 120000
-    container-wait-time: 60000
-    hide-navbar: true
+    container-wait-time: 80000
+    hide-navbar: false
     port: 8080
     authentication: none
     docker:
