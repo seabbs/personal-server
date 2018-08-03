@@ -15,6 +15,7 @@ services:
     ##  - vhost:/etc/nginx/vhost.d
     ##  - html:/usr/share/nginx/html
     ##  - certs:/etc/nginx/certs:rw
+      - ./secrets/nginx:/etc/nginx/certs:rw
     restart: always
   #Generate proxy settings for containers
   nginx-gen:
@@ -25,6 +26,7 @@ services:
     volumes:
       -  /var/run/docker.sock:/tmp/docker.sock:ro
       - ./volumes/proxy/templates:/etc/docker-gen/templates
+      - ./secrets/nginx:/etc/nginx/certs:rw
     ##  - certs:/etc/nginx/certs:rw
       - conf:/etc/nginx/conf.d
     environment:
@@ -63,11 +65,11 @@ services:
     env_file:
       - ./secrets/rstudio/creds.env
     environment:
-      - VIRTUAL_HOST=rstudio.seabbs.co.uk
+      - VIRTUAL_HOST=rstudio.samabbott.co.uk
       - VIRTUAL_PROTO=http
       - VIRTUAL_NETWORK=shinyproxy-net
       - VIRTUAL_PORT=8888
-      - LETSENCRYPT_HOST=rstudio.seabbs.co.uk
+      - LETSENCRYPT_HOST=rstudio.samabbott.co.uk
       - LETSENCRYPT_EMAIL=contact@samabbott.co.uk
     restart: always
 # Jenkins to handle automated builds
@@ -96,11 +98,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./volumes/shinyproxy:/opt/shinyproxy/app_yml:rw
     environment:
-      - VIRTUAL_HOST=apps.seabbs.co.uk
+      - VIRTUAL_HOST=apps.samabbott.co.uk
       - VIRTUAL_PROTO=http
       - VIRTUAL_NETWORK=shinyproxy-net
       - VIRTUAL_PORT=8080
-      - LETSENCRYPT_HOST=apps.seabbs.co.uk
+      - LETSENCRYPT_HOST=apps.samabbott.co.uk
       - LETSENCRYPT_EMAIL=contact@samabbott.co.uk
     restart: always
 # Watchtower to watch docker images and update those running automatically
