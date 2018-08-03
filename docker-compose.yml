@@ -59,6 +59,7 @@ services:
       - ./public_projects:/home/rstudio/public_projects
       - ./private_projects:/home/rstudio/private_projects
       - ./scripts:/home/rstudio/scripts
+      - r-packages:/usr/local/lib/R/site-library
     env_file:
       - ./secrets/rstudio/creds.env
     environment:
@@ -123,7 +124,7 @@ volumes:
   vhost: # For letsencrypt
   html: # For letsencrypt
   certs: #Volume for certificates
-
+  r-packages: #Storage for R packages between containers
 
 networks:
   default:
