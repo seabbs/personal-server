@@ -33,8 +33,8 @@ services:
     restart: always
   # Generate certs using letsencrypt
   letsencrypt-nginx-proxy-companion:
-    image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: letsencrypt-nginx-proxy-companion
+    image: jrcs/letsencrypt-nginx-proxy-companion
     depends_on:
       - nginx
       - nginx-gen
@@ -115,9 +115,10 @@ services:
       - /root/.docker/config.json:/config.json
     environment:
       - NETWORK_ACCESS=internal
-    # Look for new images every 5 minutes and removes old images
-    # Removing --no-pull will allow watchtower to get images from repos (will not work for built images)
-    command: --schedule "*/5 * * * * *" --cleanup --no-pull shinyproxy jenkins rstudio nginx-gen nginx
+    # Look for new images every hour and removes old images
+    # --no-pull will allow watchtower to get images from repos (will not work for built images)
+    # Shinyproxy and shiny apps in containers/docker-compose.yml must be updated manually
+    command: --schedule "0 * * * * *" --cleanup jenkins rstudio nginx-gen nginx letsencrypt-nginx-proxy-companion
 
 volumes:
   conf: #Volume for nginx config
