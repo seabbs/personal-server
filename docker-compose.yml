@@ -73,8 +73,7 @@ services:
 # Jenkins to handle automated builds
   jenkins:
     container_name: jenkins
-    build: containers/jenkins
-    image: jenkins
+    image: seabbs/jenkins-with-docker
     ports:
       - 9090:8080
       - 50000:50000

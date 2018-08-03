@@ -1,28 +1,7 @@
 
 version: '3'
 services:
-  rstudio:
-    container_name: rstudio
-    image: rocker/tidyverse:latest
-    ports:
-      - 8888:8787
-    volumes:
-      - ../public_projects:/home/rstudio/public_projects
-      - ../private_projects:/home/rstudio/private_projects
-      - ../scripts:/home/rstudio/scripts
-    env_file:
-      - ../secrets/rstudio/creds.env
-  jenkins:
-    container_name: jenkins
-    build: jenkins
-    image: jenkins
-    ports:
-      - 9090:8080
-      - 50000:50000
-    volumes:
-      - ../secrets/jenkins:/var/jenkins_home
-      - ../../personal-server:/var/personal-server
-      - /var/run/docker.sock:/var/run/docker.sock
+  ## Scheduled Scripts
   h2o_tweets:
     container_name: h2o_tweets
     image: seabbs/h2o_tweets:latest
@@ -36,6 +15,7 @@ services:
     volumes:
       - ../secrets/tweetrstudiocheatsheets:/home/TweetRstudioCheatsheets/storage
     command: ["Rscript", "bot.R"]
+  ## Build Shinyproxy
   shinyproxy:
     container_name: shinyproxy
     build: shinyproxy
@@ -45,6 +25,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../secrets/nginx_proxy:/home/samabbott/
+  ## Applications
   exploreidmodels:
     container_name: exploreidmodels
     image: exploreidmodels
