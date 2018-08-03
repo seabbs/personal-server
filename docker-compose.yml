@@ -25,7 +25,7 @@ services:
     volumes:
       -  /var/run/docker.sock:/tmp/docker.sock:ro
       - ./volumes/proxy/templates:/etc/docker-gen/templates
-      - ./secrets/nginx:/etc/nginx/certs:rw
+      - certs:/etc/nginx/certs:rw
       - conf:/etc/nginx/conf.d
     environment:
       - ENABLE_IPV6=true
