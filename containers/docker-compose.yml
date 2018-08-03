@@ -15,16 +15,6 @@ services:
     volumes:
       - ../secrets/tweetrstudiocheatsheets:/home/TweetRstudioCheatsheets/storage
     command: ["Rscript", "bot.R"]
-  ## Build Shinyproxy
-  shinyproxy:
-    container_name: shinyproxy
-    build: shinyproxy
-    image: shinyproxy
-    ports:
-      - 8080:8080
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ../secrets/nginx_proxy:/home/samabbott/
   ## Applications
   exploreidmodels:
     container_name: exploreidmodels

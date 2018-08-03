@@ -87,14 +87,14 @@ services:
 # Shinyproxy for managing shiny apps
   shinyproxy:
     container_name: shinyproxy
-    build: containers/shinyproxy
-    image: shinyproxy
+    image: seabbs/shinyproxy-in-docker
     expose:
       - 8080
     ports:
       - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./volumes/shinyproxy:/opt/shinyproxy/app_yml:rw
     environment:
       - VIRTUAL_HOST=apps.samabbott.co.uk
       - VIRTUAL_PROTO=https
@@ -118,7 +118,7 @@ services:
     # Look for new images every hour and removes old images
     # --no-pull will allow watchtower to get images from repos (will not work for built images)
     # Shinyproxy and shiny apps in containers/docker-compose.yml must be updated manually
-    command: --schedule "0 * * * * *" --cleanup jenkins-with-docker rstudio nginx-gen nginx letsencrypt-nginx-proxy-companion
+    command: --schedule "0 * * * * *" --cleanup jenkins-with-docker shinyproxy-in-docker rstudio nginx-gen nginx letsencrypt-nginx-proxy-companion
 
 volumes:
   conf: #Volume for nginx config
