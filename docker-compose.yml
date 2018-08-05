@@ -134,7 +134,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
-      - secrets/portainer/password:/tmp/portainer_password
+      - ./secrets/portainer/password:/tmp/portainer_password
     environment:
       - NETWORK_ACCESS=internal
     command: --admin-password-file /tmp/portainer_password
