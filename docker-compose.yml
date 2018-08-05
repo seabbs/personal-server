@@ -4,6 +4,9 @@ services:
   nginx:
     container_name: nginx
     image: nginx
+    depends_on:
+      - nginx-gen
+      - nginx-letsencrypt
     expose:
       - 80
       - 443
@@ -23,7 +26,7 @@ services:
     container_name: nginx-gen
     image: jwilder/docker-gen
     depends_on:
-      - nginx
+      - nginx-letsencrypt
     volumes:
       -  /var/run/docker.sock:/tmp/docker.sock:ro
       - ./volumes/proxy/templates:/etc/docker-gen/templates
@@ -38,10 +41,7 @@ services:
   # Generate certs using letsencrypt
   nginx-letsencrypt:
     container_name: nginx-letsencrypt
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    depends_on:
-      - nginx
-      - nginx-gen
+    image: jrcs/letsencrypt-nginx-proxy-companion 
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - nginx-conf:/etc/nginx/conf.d
