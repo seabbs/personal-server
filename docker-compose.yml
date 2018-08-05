@@ -41,7 +41,7 @@ services:
   # Generate certs using letsencrypt
   nginx-letsencrypt:
     container_name: nginx-letsencrypt
-    image: jrcs/letsencrypt-nginx-proxy-companion 
+    image: jrcs/letsencrypt-nginx-proxy-companion
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - nginx-conf:/etc/nginx/conf.d
@@ -51,7 +51,6 @@ services:
     environment:
       - NGINX_PROXY_CONTAINER=nginx
       - NGINX_DOCKER_GEN_CONTAINER=nginx-gen
-      - DEBUG=true
       - ACME_CA_URI=https://acme-staging.api.letsencrypt.org/directory
     restart: always
 # Rstudio server
@@ -135,9 +134,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
+      - secrets/portainer/password:/tmp/portainer_password
     environment:
       - NETWORK_ACCESS=internal
-    command: -H unix:///var/run/docker.sock
+    command: --admin-password-file /tmp/portainer_password
 
 volumes:
   nginx-conf: #Volume for nginx config
