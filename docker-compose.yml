@@ -121,13 +121,23 @@ services:
     # --no-pull will allow watchtower to get images from repos (will not work for built images)
     # Shinyproxy and shiny apps in containers/docker-compose.yml must be updated manually
     command: --schedule "0 * * * * *" --cleanup jenkins shinyproxy rstudio nginx-gen nginx nginx-letsencrypt
+# Portainer for managing other services via a UI
+  portainer:
+    container_name: portainer
+    image: portainer/portainer
+    ports:
+      - 9000:9000
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
 
 volumes:
   conf: #Volume for nginx config
   vhost: # For letsencrypt
   html: # For letsencrypt
   r-packages: #Storage for R packages between containers
-
+  portainer_data: #Storage for persistent portainer data
 networks:
   default:
     external:
