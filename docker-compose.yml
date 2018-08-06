@@ -1,65 +1,152 @@
 version: '3'
 services:
-# Proxy to forward https connections to shinyproxy and rstudio
-  nginx_proxy:
-    container_name: nginx_proxy
-    image: nginx_proxy
-    build: containers/nginx_proxy
+# Proxy to forward https connections to services
+  nginx:
+    container_name: nginx
+    image: nginx
+    depends_on:
+      - nginx-gen
+      - nginx-letsencrypt
+    expose:
+      - 80
+      - 443
     ports:
       - 80:80
       - 443:443
     volumes:
-      - ./secrets/nginx_proxy:/etc/ssl/
+      - nginx-conf:/etc/nginx/conf.d
+      - nginx-vhost:/etc/nginx/vhost.d
+      - nginx-html:/usr/share/nginx/html
+      - nginx-certs:/etc/nginx/certs:rw
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+    restart: always
+  #Generate proxy settings for containers
+  nginx-gen:
+    container_name: nginx-gen
+    image: jwilder/docker-gen
+    depends_on:
+      - nginx-letsencrypt
+    volumes:
+      -  /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./volumes/proxy/templates:/etc/docker-gen/templates
+      ##- ./secrets/nginx:/etc/nginx/certs:rw
+      - nginx-conf:/etc/nginx/conf.d
+      - nginx-vhost:/etc/nginx/vhost.d
+      - nginx-html:/usr/share/nginx/html
+      - nginx-certs:/etc/nginx/certs:rw
+    environment:
+      - ENABLE_IPV6=true
+    entrypoint: /usr/local/bin/docker-gen -notify-sighup nginx -watch -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
+    restart: always
+  # Generate certs using letsencrypt
+  nginx-letsencrypt:
+    container_name: nginx-letsencrypt
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - nginx-conf:/etc/nginx/conf.d
+      - nginx-vhost:/etc/nginx/vhost.d
+      - nginx-html:/usr/share/nginx/html
+      - nginx-certs:/etc/nginx/certs:rw
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx
+      - NGINX_DOCKER_GEN_CONTAINER=nginx-gen
     restart: always
 # Rstudio server
   rstudio:
     container_name: rstudio
     image: rocker/tidyverse:latest
+    expose:
+      - 8787
     ports:
       - 8888:8787
     volumes:
       - ./public_projects:/home/rstudio/public_projects
       - ./private_projects:/home/rstudio/private_projects
       - ./scripts:/home/rstudio/scripts
+      - r-packages:/usr/local/lib/R/site-library
     env_file:
       - ./secrets/rstudio/creds.env
+    environment:
+      - VIRTUAL_HOST=rstudio.samabbott.co.uk
+      - VIRTUAL_PROTO=http
+      - VIRTUAL_NETWORK=shinyproxy-net
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=rstudio.samabbott.co.uk
+      - LETSENCRYPT_EMAIL=contact@samabbott.co.uk
     restart: always
-# Jenkins handles automated builds
+# Jenkins to handle automated builds
   jenkins:
     container_name: jenkins
-    build: containers/jenkins
-    image: jenkins
+    image: seabbs/jenkins-with-docker
     ports:
       - 9090:8080
       - 50000:50000
     volumes:
-      - ./secrets/jenkins:/var/jenkins_home
-      - ../personal-server:/var/personal-server
+      - ./secrets/jenkins:/var/jenkins_home:rw
+      - ../personal-server:/var/personal-server:rw
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - NETWORK_ACCESS=internal
     restart: always
-# Launch shinyproxy for managing shiny apps
+# Shinyproxy for managing shiny apps
   shinyproxy:
     container_name: shinyproxy
-    build: containers/shinyproxy
-    image: shinyproxy
+    image: seabbs/shinyproxy-in-docker
+    expose:
+      - 8080
     ports:
       - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./volumes/shinyproxy:/opt/shinyproxy/app_yml:rw
+    environment:
+      - VIRTUAL_HOST=apps.samabbott.co.uk
+      - VIRTUAL_PROTO=http
+      - VIRTUAL_NETWORK=shinyproxy-net
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=apps.samabbott.co.uk
+      - LETSENCRYPT_EMAIL=contact@samabbott.co.uk
     restart: always
-# Watchtower is a process for watching your Docker containers and automatically
-# updating and restarting them whenever their base image is refreshed.
+# Watchtower to watch docker images and update those running automatically
+# This can either be done locally or from remote images
   watchtower:
     container_name: watchtower
     restart: always
     image: v2tec/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /root/.docker/config.json:/config.json
-    # Look for new images every 5 minutes and removes old images
-    # Removing --no-pull will allow watchtower to get images from repos (will not work for built images)
-    command: --schedule "*/5 * * * * *" --cleanup --no-pull
+    ## Use below if pulling from private docker registries
+    ##  - /home/<user>/.docker/config.json:/config.json
+    environment:
+      - NETWORK_ACCESS=internal
+    # Look for new images every hour and removes old images
+    # --no-pull will allow watchtower to get images from repos (will not work for built images)
+    # Shinyproxy and shiny apps in containers/docker-compose.yml must be updated manually
+    command: --schedule "0 * * * * *" --cleanup jenkins shinyproxy rstudio nginx-gen nginx nginx-letsencrypt portainer
+# Portainer for managing docker (+ other services) via a UI
+  portainer:
+    container_name: portainer
+    image: portainer/portainer
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+      - ./secrets/portainer/password:/tmp/portainer_password
+    environment:
+      - NETWORK_ACCESS=internal
+    command: --admin-password-file /tmp/portainer_password
+
+volumes:
+  nginx-conf: #Volume for nginx config
+  nginx-vhost:  # For letsencrypt
+  nginx-html:  # For letsencrypt
+  nginx-certs: #Certs for letsencrypt
+  r-packages: #Storage for R packages between containers
+  portainer_data: #Storage for persistent portainer data
 networks:
   default:
     external:
-      name: server-net
+      name: shinyproxy-net
