@@ -15,7 +15,7 @@ services:
       - 443:443
     volumes:
       - nginx-conf:/etc/nginx/conf.d
-      - nginx-vhost:/etc/nginx/vhost.d
+      - ./volumes/proxy/vhost.d:/etc/nginx/vhost.d
       - nginx-html:/usr/share/nginx/html
       - nginx-certs:/etc/nginx/certs:rw
     labels:
@@ -32,7 +32,7 @@ services:
       - ./volumes/proxy/templates:/etc/docker-gen/templates
       ##- ./secrets/nginx:/etc/nginx/certs:rw
       - nginx-conf:/etc/nginx/conf.d
-      - nginx-vhost:/etc/nginx/vhost.d
+      - ./volumes/proxy/vhost.d:/etc/nginx/vhost.d
       - nginx-html:/usr/share/nginx/html
       - nginx-certs:/etc/nginx/certs:rw
     environment:
@@ -46,7 +46,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - nginx-conf:/etc/nginx/conf.d
-      - nginx-vhost:/etc/nginx/vhost.d
+      - ./volumes/proxy/vhost.d:/etc/nginx/vhost.d
       - nginx-html:/usr/share/nginx/html
       - nginx-certs:/etc/nginx/certs:rw
     environment:
@@ -141,7 +141,7 @@ services:
 
 volumes:
   nginx-conf: #Volume for nginx config
-  nginx-vhost:  # For letsencrypt
+  #nginx-vhost:  # For letsencrypt
   nginx-html:  # For letsencrypt
   nginx-certs: #Certs for letsencrypt
   r-packages: #Storage for R packages between containers
