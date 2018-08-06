@@ -69,11 +69,11 @@ services:
     env_file:
       - ./secrets/rstudio/creds.env
     environment:
-      - VIRTUAL_HOST=rstudio.seabbs.co.uk
+      - VIRTUAL_HOST=rstudio.samabbott.co.uk
       - VIRTUAL_PROTO=http
       - VIRTUAL_NETWORK=shinyproxy-net
       - VIRTUAL_PORT=80
-      - LETSENCRYPT_HOST=rstudio.seabbs.co.uk
+      - LETSENCRYPT_HOST=rstudio.samabbott.co.uk
       - LETSENCRYPT_EMAIL=contact@samabbott.co.uk
     restart: always
 # Jenkins to handle automated builds
@@ -102,11 +102,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./volumes/shinyproxy:/opt/shinyproxy/app_yml:rw
     environment:
-      - VIRTUAL_HOST=apps.seabbs.co.uk
+      - VIRTUAL_HOST=apps.samabbott.co.uk
       - VIRTUAL_PROTO=http
       - VIRTUAL_NETWORK=shinyproxy-net
       - VIRTUAL_PORT=80
-      - LETSENCRYPT_HOST=apps.seabbs.co.uk
+      - LETSENCRYPT_HOST=apps.samabbott.co.uk
       - LETSENCRYPT_EMAIL=contact@samabbott.co.uk
     restart: always
 # Watchtower to watch docker images and update those running automatically
