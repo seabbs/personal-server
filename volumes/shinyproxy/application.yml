@@ -1,53 +1,52 @@
-shiny:
-  proxy:
-    title: Sam Abbott's Applications
-    logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/logo.png
-    landing-page: /
-    heartbeat-rate: 10000
-    heartbeat-timeout: 120000
-    container-wait-time: 120000
-    hide-navbar: false
-    port: 8080
-    authentication: none
-    docker:
-      internal-networking: true
-  specs:
-  - id: exploreglobaltb
-    display-name: Explore Global Tuberculosis - with getTBinR
-    description: An app harnessing the functionality of getTBinR to allow the exploration of World Health Organisation Tuberculosis data.
-    container-image: exploreglobaltb
-    container-network: shinyproxy-net
-  - id: tb_england_wales
-    display-name: Tuberculosis in England and Wales
-    description: Exploring public data on Tuberculosis in England and Wales using interactive dashboards.
-    container-image: tb_england_wales
-    container-network: shinyproxy-net
-  - id: intro_to_tb_models
-    display-name: Introduction to Tuberculosis Models
-    description: An app recreating the models used in the practicals for the Intro to TB modelling course at the 2017 Union Conference.
-    container-image: seabbs/intro_to_tb_models
-    container-network: shinyproxy-net
-  - id: exploreidmodels
-    display-name: Explore Infectious Disease Models
-    description: An app which allows the exploration of the dynamics of a range of simple infectious disease models.
-    container-image: exploreidmodels
-    container-network: shinyproxy-net
-  - id: thepebblegame
-    display-name: The Pebble Game
-    description: A simple game that can be used to understand some of the mathematics underlying epidemics and vaccination.
-    container-image: seabbs/thepebblegame
-    container-network: shinyproxy-net
-  - id: fcdashboard
-    display-name: Funding Circle Dashboard
-    description: Visualise and explore both the public Funding Circle loanbook and your own.
-    container-image: seabbs/fcdashboard
-    container-volumes: ["/home/s_e_abbott12/personal-server/secrets/fcdashboard/:/home/fcdashboard/storage/"]
-    container-network: shinyproxy-net
-  - id: showmeperseus
-    display-name: Show Me Perseus
-    description: A shiny app to remove potential friction for new R users when using the R perseus package.
-    container-image: showmeperseus
-    container-network: shinyproxy-net
+proxy:
+  title: Sam Abbott's Applications
+  logo-url: https://raw.githubusercontent.com/seabbs/seabbs.github.io/sources/static/img/logo.png
+  landing-page: /
+  heartbeat-rate: 10000
+  heartbeat-timeout: 120000
+  container-wait-time: 120000
+  hide-navbar: false
+  port: 8080
+  authentication: none
+  docker:
+    internal-networking: true
+specs:
+- id: exploreglobaltb
+  display-name: Explore Global Tuberculosis - with getTBinR
+  description: An app harnessing the functionality of getTBinR to allow the exploration of World Health Organisation Tuberculosis data.
+  container-image: exploreglobaltb
+  container-network: shinyproxy-net
+- id: tb_england_wales
+  display-name: Tuberculosis in England and Wales
+  description: Exploring public data on Tuberculosis in England and Wales using interactive dashboards.
+  container-image: tb_england_wales
+  container-network: shinyproxy-net
+- id: intro_to_tb_models
+  display-name: Introduction to Tuberculosis Models
+  description: An app recreating the models used in the practicals for the Intro to TB modelling course at the 2017 Union Conference.
+  container-image: seabbs/intro_to_tb_models
+  container-network: shinyproxy-net
+- id: exploreidmodels
+  display-name: Explore Infectious Disease Models
+  description: An app which allows the exploration of the dynamics of a range of simple infectious disease models.
+  container-image: exploreidmodels
+  container-network: shinyproxy-net
+- id: thepebblegame
+  display-name: The Pebble Game
+  description: A simple game that can be used to understand some of the mathematics underlying epidemics and vaccination.
+  container-image: seabbs/thepebblegame
+  container-network: shinyproxy-net
+- id: fcdashboard
+  display-name: Funding Circle Dashboard
+  description: Visualise and explore both the public Funding Circle loanbook and your own.
+  container-image: seabbs/fcdashboard
+  container-volumes: ["/home/s_e_abbott12/personal-server/secrets/fcdashboard/:/home/fcdashboard/storage/"]
+  container-network: shinyproxy-net
+- id: showmeperseus
+  display-name: Show Me Perseus
+  description: A shiny app to remove potential friction for new R users when using the R perseus package.
+  container-image: showmeperseus
+  container-network: shinyproxy-net
 logging:
-  file:
-    shinyproxy.log
+file:
+  shinyproxy.log
