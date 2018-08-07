@@ -108,6 +108,7 @@ services:
       - VIRTUAL_PORT=80
       - LETSENCRYPT_HOST=apps.samabbott.co.uk
       - LETSENCRYPT_EMAIL=contact@samabbott.co.uk
+      - HTTPS_METHOD=noredirect
     restart: always
 # Watchtower to watch docker images and update those running automatically
 # This can either be done locally or from remote images
