@@ -126,19 +126,19 @@ services:
     command: --schedule "0 * * * * *" --cleanup jenkins shinyproxy rstudio nginx-gen nginx nginx-letsencrypt portainer
     restart: unless-stopped
 # Portainer for managing docker (+ other services) via a UI
-  portainer:
-    container_name: portainer
-    image: portainer/portainer
-    ports:
-      - 9000:9000
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-      - ./secrets/portainer/password:/tmp/portainer_password
-    environment:
-      - NETWORK_ACCESS=internal
-    command: --admin-password-file /tmp/portainer_password
-    restart: unless-stopped
+#  portainer:
+#    container_name: portainer
+#    image: portainer/portainer
+#    ports:
+#      - 9000:9000
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - portainer_data:/data
+#      - ./secrets/portainer/password:/tmp/portainer_password
+#    environment:
+#      - NETWORK_ACCESS=internal
+#    command: --admin-password-file /tmp/portainer_password
+#    restart: unless-stopped
 
 volumes:
   nginx-conf: #Volume for nginx config
@@ -146,7 +146,7 @@ volumes:
   nginx-html:  # For letsencrypt
   nginx-certs: #Certs for letsencrypt
   r-packages: #Storage for R packages between containers
-  portainer_data: #Storage for persistent portainer data
+#  portainer_data: #Storage for persistent portainer data
 networks:
   default:
     external:
