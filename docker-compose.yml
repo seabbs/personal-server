@@ -113,7 +113,6 @@ services:
 # This can either be done locally or from remote images
   watchtower:
     container_name: watchtower
-    restart: unless-stopped
     image: v2tec/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -125,6 +124,7 @@ services:
     # --no-pull will allow watchtower to get images from repos (will not work for built images)
     # Shinyproxy and shiny apps in containers/docker-compose.yml must be updated manually
     command: --schedule "0 * * * * *" --cleanup jenkins shinyproxy rstudio nginx-gen nginx nginx-letsencrypt portainer
+    restart: unless-stopped
 # Portainer for managing docker (+ other services) via a UI
   portainer:
     container_name: portainer
@@ -138,6 +138,7 @@ services:
     environment:
       - NETWORK_ACCESS=internal
     command: --admin-password-file /tmp/portainer_password
+    restart: unless-stopped
 
 volumes:
   nginx-conf: #Volume for nginx config
