@@ -123,7 +123,7 @@ services:
     # Look for new images every hour and removes old images
     # --no-pull will allow watchtower to get images from repos (will not work for built images)
     # Shinyproxy and shiny apps in containers/docker-compose.yml must be updated manually
-    command: --schedule "0 0 * *"  --cleanup jenkins shinyproxy rstudio nginx-gen nginx nginx-letsencrypt portainer
+    command: --schedule 0 0 * * * *"  --cleanup jenkins shinyproxy rstudio nginx-gen nginx nginx-letsencrypt portainer
     restart: unless-stopped
 # Portainer for managing docker (+ other services) via a UI
 #  portainer:
