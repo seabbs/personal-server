@@ -15,7 +15,7 @@ services:
       - 443:443
     volumes:
       - nginx-conf:/etc/nginx/conf.d
-      - ./volumes/proxy/vhost.d:/etc/nginx/vhost.d
+      - ./volumes/proxy/vhost.d/apps.samabbott.co.uk:/etc/nginx/vhost.d/apps.samabbott.co.uk
       - nginx-html:/usr/share/nginx/html
       - nginx-certs:/etc/nginx/certs:rw
     labels:
