@@ -6,6 +6,7 @@ This repository contains the docker containers and `docker-compose.yml`'s requir
 - [Rstudio server (via rocker)](https://hub.docker.com/r/rocker/tidyverse/)
 - [Jenkins](https://jenkins.io)
 - [Nginx](http://nginx.org)
+- [LetsEncrypt](https://letsencrypt.org)
 - [Watchtower](https://github.com/v2tec/watchtower)
 
 Modification to another use case should be straightforward. Any suggestions for improvements are welcome.
@@ -83,12 +84,12 @@ sudo docker-compose -f personal-server/containers/docker-compose.yml run tweetrs
 
 ```bash
 cd ..
-bash personal-server/push_to_bucket.sh
+sudo bash personal-server/push_to_bucket.sh
 ```
 
 ## Connecting to the server
 
-If properly configured the Shinyproxy instance can be found at [apps.samabbott.co.uk](https://apps.samabbott.co.uk), with the Rstudio instance at [rstudio.samabbott.co.uk](https://rstudio.samabbott.co.uk) (password controlled via `secrets`). In order to access the Jenkins server connect over ssh, forwarding `9090`. Similarly both the ShinyProxy instance and the Rstudio instance may also be accessed using port forwarding (`8080` and `8888` respectively).
+If properly configured the Shinyproxy instance can be found at [apps.samabbott.co.uk](http://apps.samabbott.co.uk), with the Rstudio instance at [rstudio.samabbott.co.uk](https://rstudio.samabbott.co.uk) (password controlled via `secrets`). In order to access the Jenkins server connect over ssh, forwarding `9090`. Similarly both the ShinyProxy instance and the Rstudio instance may also be accessed using port forwarding (`8080` and `8888` respectively).
 
 ## Updating
 
