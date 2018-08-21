@@ -15,7 +15,7 @@ services:
       - 443:443
     volumes:
       - nginx-conf:/etc/nginx/conf.d
-      - ./volumes/proxy/vhost.d/apps.samabbott.co.uk:/etc/nginx/vhost.d/apps.samabbott.co.uk
+    ##- ./volumes/proxy/vhost.d:/etc/nginx/vhost.d
       - nginx-html:/usr/share/nginx/html
       - nginx-certs:/etc/nginx/certs:rw
     labels:
@@ -30,9 +30,8 @@ services:
     volumes:
       -  /var/run/docker.sock:/tmp/docker.sock:ro
       - ./volumes/proxy/templates:/etc/docker-gen/templates
-      ##- ./secrets/nginx:/etc/nginx/certs:rw
       - nginx-conf:/etc/nginx/conf.d
-      - ./volumes/proxy/vhost.d:/etc/nginx/vhost.d
+    ##- ./volumes/proxy/vhost.d:/etc/nginx/vhost.d
       - nginx-html:/usr/share/nginx/html
       - nginx-certs:/etc/nginx/certs:rw
     environment:
@@ -46,7 +45,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - nginx-conf:/etc/nginx/conf.d
-      - ./volumes/proxy/vhost.d:/etc/nginx/vhost.d
+    ##- ./volumes/proxy/vhost.d:/etc/nginx/vhost.d
       - nginx-html:/usr/share/nginx/html
       - nginx-certs:/etc/nginx/certs:rw
     environment:
