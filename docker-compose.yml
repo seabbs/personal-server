@@ -108,8 +108,9 @@ services:
       - VIRTUAL_PROTO=http
       - VIRTUAL_NETWORK=shinyproxy-net
       - VIRTUAL_PORT=80
-      - LETSENCRYPT_HOST=apps.samabbott.co.uk
-      - LETSENCRYPT_EMAIL=contact@samabbott.co.uk
+      - HTTPS_METHOD=nohttps
+      ##- LETSENCRYPT_HOST=apps.samabbott.co.uk
+      ##- LETSENCRYPT_EMAIL=contact@samabbott.co.uk
     restart: unless-stopped
 # Watchtower to watch docker images and update those running automatically
 # This can either be done locally or from remote images
