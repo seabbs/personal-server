@@ -103,6 +103,7 @@ services:
       - ./volumes/shinyproxy:/opt/shinyproxy/app_yml:rw
     environment:
       - VIRTUAL_HOST=apps.samabbott.co.uk
+      - HTTPS_METHOD=nohttps
       - VIRTUAL_PROTO=http
       - VIRTUAL_NETWORK=shinyproxy-net
       - VIRTUAL_PORT=80
